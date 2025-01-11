@@ -1,63 +1,18 @@
-import { useSection } from "deco/hooks/useSection.ts";
+import { useScript } from "@deco/deco/hooks";
 
-export interface Props {
-  /**
-   * @format rich-text
-   * @description The description of name.
-   * @default It Works!
-   */
-  name?: string;
+const goPurchase = () => {
+  window.dataLayer?.push({ event: "purchase" });
+};
 
-  count?: number;
-}
-
-export default function Section({ name = "It Works!", count = 0 }: Props) {
-  /**
-   * useSection is a nice hook for getting the HTMX link to render this section,
-   * but with the following Props
-   */
-  const downLink = useSection({ props: { count: count - 1 } });
-  const upLink = useSection({ props: { count: count + 1 } });
-
+export default function Section() {
   return (
-    <div
-      id="it-works"
-      class="container py-10 flex flex-col h-screen w-full items-center justify-center gap-16"
-    >
-      <div
-        class="leading-10 text-6xl"
-        dangerouslySetInnerHTML={{
-          __html: name,
-        }}
-      />
-
-      <div class="flex flex-col items-center justify-center gap-2">
-        <div class="flex items-center gap-4">
-          <button
-            hx-target="#it-works"
-            hx-swap="outerHTML"
-            hx-get={downLink} // htmx link for this section with the down vote props
-            class="btn btn-sm btn-circle btn-outline no-animation"
-          >
-            <span class="inline [.htmx-request_&]:hidden">
-              -
-            </span>
-            <span class="loading loading-spinner hidden [.htmx-request_&]:inline" />
-          </button>
-          <span>{count}</span>
-          <button
-            hx-target="#it-works"
-            hx-swap="outerHTML"
-            hx-get={upLink} // htmx link for this section with the up vote props
-            class="btn btn-sm btn-circle btn-outline no-animation"
-          >
-            <span class="inline [.htmx-request_&]:hidden">
-              +
-            </span>
-            <span class="loading loading-spinner hidden [.htmx-request_&]:inline" />
-          </button>
-        </div>
-        <div class="text-sm">Powered by HTMX</div>
+    <div className="bg-black w-dvw h-dvh">
+      <div className="bg-white left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 fixed max-w-96 text-black p-8 rounded-lg flex flex-col items-center justify-center gap-2">
+        <h1 className="text-xl">Bem vindo ao Teste</h1>
+        <p>Esse é um teste de GTM, GA e Teste A/B. Esse site é em Deco.cx e você está na Infra da Deco</p>
+        <button className="btn btn-primary" hx-on:click={useScript(goPurchase)}>
+          Simular Compra
+        </button>
       </div>
     </div>
   );
