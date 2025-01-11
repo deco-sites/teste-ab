@@ -45,7 +45,14 @@
     },
     "includeScriptsToBody": {
       "includes": []
-    }
+    },
+    "enabled": true,
+    "name": "Teste",
+    "matcher": {
+      "__resolveType": "website/matchers/random.ts",
+      "traffic": 0.5
+    },
+    "urlToRunAgainst": "https://teste-ab-teste.vercel.app"
   },
   "flavor": {
     "framework": "fresh"
